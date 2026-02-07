@@ -1,0 +1,26 @@
+# --- 核心深度学习框架 ---
+# 指定版本以防止自动下载 CPU 版本，PyTorch 2.4+ 对 Qwen2.5 支持最好
+torch>=2.4.0
+torchvision
+
+# --- 大模型基础设施 ---
+# Qwen2.5-VL 是新模型，需要非常新的 transformers
+transformers>=4.47.0
+accelerate>=0.26.0
+
+# --- Qwen 专属工具 ---
+# 这是 Qwen2.5-VL 处理视频和图像的关键库
+qwen-vl-utils>=0.0.8
+
+# --- 图像与视频处理 ---
+opencv-python
+pillow
+scipy
+numpy
+
+# --- Web UI 与数据 ---
+gradio>=4.0.0
+pandas
+
+# --- 模型下载工具 ---
+modelscope
