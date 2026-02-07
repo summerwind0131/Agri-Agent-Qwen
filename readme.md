@@ -7,7 +7,9 @@
 [![Framework](https://img.shields.io/badge/Framework-PyTorch%20%7C%20Gradio-orange)](https://pytorch.org/)
 
 > 🎓 **Project Origin**: Nankai University | Intelligent Science & Technology
+
 > 🚜 **Core Tech**: Qwen2.5-VL (3B/7B) + Dynamic Model Switching + Edge Computing
+
 > 👤 **Author**: Fengyuan
 
 ## 📖 Introduction (项目简介)
@@ -121,6 +123,3 @@ MODEL_MAP = {
 
 Developed by Fengyuan @ Nankai University.
 
-```
-
-```
