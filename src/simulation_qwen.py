@@ -8,7 +8,7 @@ from ui_utils import SmartHUD
 # 切换模型只需修改这里。例如：
 # 3B 路径: '../models/Qwen2.5-VL-3B-Instruct'
 # 7B 路径: '../models/Qwen2.5-VL-7B-Instruct'
-MODEL_PATH = '../models/Qwen2.5-VL-3B-Instruct' 
+MODEL_PATH = "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-3B-Instruct"
 
 VIDEO_PATH = '../assets/demo_video.mp4'
 OUTPUT_PATH = 'output_qwen_dashboard.mp4'

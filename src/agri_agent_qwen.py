@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+from PIL import Image,ImageDraw
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
 from qwen_vl_utils import process_vision_info
 
@@ -85,3 +85,27 @@ class AgriAgentQwen:
         except Exception as e:
             print(f"Inference Error: {e}")
             return "Unknown"
+if __name__ == "__main__":
+    # 请修改为你服务器上的真实路径
+    MODEL_PATH = "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-3B-Instruct"
+    
+    agent = AgriAgentQwen(model_path=MODEL_PATH)
+    agent.load_model()
+
+    # --- 使用更大的图片尺寸 ---
+    # Qwen2-VL 对极小分辨率(224x224)支持不佳，建议至少 512x512
+    # 纯色图片有时会被模型当做 padding，这里画个圆让它看着像个东西
+    print("🎨 Creating test image...")
+    test_img = Image.new('RGB', (640, 640), color='red')
+    draw = ImageDraw.Draw(test_img)
+    draw.ellipse((200, 200, 440, 440), fill = 'blue', outline ='white')
+    
+    print("🧠 Testing prediction...")
+    result = agent.predict(test_img, "Describe this image in detail. What colors do you see?")
+    print(f"Result: {result}")
+    
+    # 创建一个纯色图片测试一下通路
+    #test_img = Image.new('RGB', (224, 224), color='red')
+    #print("Testing prediction...")
+    #result = agent.predict(test_img, "图里有什么颜色？")
+    #print(f"Result: {result}")
