@@ -1,0 +1,48 @@
+# --- Python 通用 ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# --- 虚拟环境 (Virtual Envs) ---
+# 避免把依赖包传上去
+venv/
+.venv/
+env/
+.env
+
+# --- IDE 编辑器配置 ---
+# 编辑器设置
+.vscode/
+.idea/
+*.swp
+
+# --- AI 模型与权重 (非常重要!!!) ---
+# 忽略所有大模型权重文件，防止仓库体积爆炸
+models/
+weights/
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+*.onnx
+
+# --- 输出文件与临时文件 ---
+# 忽略程序生成的视频和图片
+output_*.mp4
+output_*.jpg
+*.log
+runs/
+results/
+wandb/
+
+# --- 操作系统文件 ---
+.DS_Store
+Thumbs.db
+
+# --- 特例 ---
+# 如果你想保留 assets 里的 demo 视频，可以不忽略 mp4
+# 但如果你有其他很大的测试视频，建议把它们列在这里
