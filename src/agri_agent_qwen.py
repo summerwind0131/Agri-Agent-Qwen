@@ -1,6 +1,6 @@
 import torch
 from PIL import Image,ImageDraw
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
+from transformers import AutoModelForVision2Seq, AutoTokenizer, AutoProcessor
 from qwen_vl_utils import process_vision_info
 
 class AgriAgentQwen:
@@ -13,16 +13,18 @@ class AgriAgentQwen:
     def load_model(self):
         print(f"🔄 Loading Qwen2.5-VL from {self.model_path} ...")
         try:
-            # 自动适配：如果是 AWQ 量化模型，需要特殊的加载方式
-            # 但 Qwen2.5 的 AutoModel 通常能自动处理，这里显式指定类
-            self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+            self.model = AutoModelForVision2Seq.from_pretrained(
                 self.model_path,
                 torch_dtype="auto", 
-                device_map="auto"
+                device_map="auto",
+                trust_remote_code=True
             )
             
             # 加载处理器
-            self.processor = AutoProcessor.from_pretrained(self.model_path)
+            self.processor = AutoProcessor.from_pretrained(
+                self.model_path,
+                trust_remote_code=True
+            )
             
             print("✅ AgriAgent-Qwen Brain Online!")
             
@@ -87,8 +89,11 @@ class AgriAgentQwen:
             return "Unknown"
 if __name__ == "__main__":
     # 请修改为你服务器上的真实路径
+    # 3B版本
     MODEL_PATH = "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-3B-Instruct"
     
+    # 7B版本
+    #MODEL_PATH = "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-7B-Instruct"
     agent = AgriAgentQwen(model_path=MODEL_PATH)
     agent.load_model()
 

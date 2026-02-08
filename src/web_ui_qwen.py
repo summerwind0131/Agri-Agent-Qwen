@@ -12,12 +12,12 @@ from ui_utils import SmartHUD
 # --- 1. 模型配置 (字典映射) ---
 # 这里的 Key 是显示给用户看的名字，Value 是服务器上的真实路径
 MODEL_MAP = {
-    "Qwen2.5-VL-3B (极速版 - 推荐)": "/root/autodl-tmp/models/Qwen/Qwen2.5-VL-3B-Instruct",
-    "Qwen2.5-VL-7B (高精版 - 需16G显存)": "/root/autodl-tmp/models/Qwen/Qwen2.5-VL-7B-Instruct",
+    "Qwen2.5-VL-3B (极速版 - 推荐)": "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-3B-Instruct",
+    "Qwen2.5-VL-7B (高精版 - 需16G显存)": "/root/autodl-tmp/models/Qwen/Qwen2___5-VL-7B-Instruct",
 }
 
 VIDEO_PATH = 'demo_video.mp4'
-THINK_INTERVAL = 5
+THINK_INTERVAL = 15
 
 # --- 全局变量 ---
 agent = None
@@ -47,6 +47,9 @@ def load_system(model_selection):
     target_path = MODEL_MAP.get(model_selection)
     if not target_path:
         return "❌ 错误：请先选择一个模型！"
+    
+    if is_running:
+        return "⚠️ 安全警告：巡航模式下禁止切换内核！请先点击[紧急停止]。"
 
     print(f"🔄 正在切换/加载模型: {model_selection}...")
     
@@ -119,6 +122,10 @@ def processing_loop():
     if not cap.isOpened():
         # 备用路径尝试
         cap = cv2.VideoCapture('../assets/demo_video.mp4')
+    
+    if not cap.isOpened():
+        yield None, "❌ 错误：找不到视频文件", pd.DataFrame(), "🔴 启动失败：请检查 demo_video.mp4 是否存在"
+        return
 
     frame_count = 0
     logs = []
